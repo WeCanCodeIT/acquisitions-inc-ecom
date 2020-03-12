@@ -1,1 +1,1 @@
-Adding README files is fun.
+This is our workshop project.
