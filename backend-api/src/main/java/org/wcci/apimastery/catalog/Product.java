@@ -2,7 +2,10 @@ package org.wcci.apimastery.catalog;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Product {
@@ -10,23 +13,30 @@ public class Product {
         return name;
     }
 
-    private String name;
     @Id
     @GeneratedValue
     private Long id;
-
+    private String name;
+    private String description;
     @JsonIgnore
     @ManyToOne
     private Manufacturer manufacturer;
 
-    protected Product(){};
-    public Product(String name, Manufacturer manufacturer) {
+    protected Product() {
+    }
+
+    public Product(String name, String description, Manufacturer manufacturer) {
         this.name = name;
+        this.description = description;
         this.manufacturer = manufacturer;
     }
 
     public Long getId() {
         return id;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public Manufacturer getManufacturer() {

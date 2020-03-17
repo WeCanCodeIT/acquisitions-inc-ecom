@@ -5,20 +5,27 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import java.util.Collection;
+import java.util.Objects;
 
 @Entity
 public class Manufacturer {
     @Id
     @GeneratedValue
     private Long id;
+    private String name;
+    private String description;
     @OneToMany(mappedBy = "manufacturer")
     private Collection<Product> products;
-    private String name;
 
-    protected Manufacturer(){};
-    public Manufacturer(String name) {
+    protected Manufacturer() {
+    }
+
+    ;
+
+    public Manufacturer(String name, String description) {
 
         this.name = name;
+        this.description = description;
     }
 
     public String getName() {
@@ -33,21 +40,22 @@ public class Manufacturer {
         return products;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         Manufacturer that = (Manufacturer) o;
-
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        return name != null ? name.equals(that.name) : that.name == null;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(description, that.description);
     }
 
     @Override
     public int hashCode() {
-        int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        return result;
+        return Objects.hash(id, name, description);
     }
 }
