@@ -21,12 +21,12 @@ public class JpaMappingTest {
     private TestEntityManager entityManager;
 
     @Test
-    public void productsShouldHaveAManufacturer(){
-        Manufacturer testManufacturer = new Manufacturer("Test Inc.");
+    public void productsShouldHaveAManufacturer() {
+        Manufacturer testManufacturer = new Manufacturer("Test Inc.", "Sample Description");
         manufacturerRepo.save(testManufacturer);
 
-        Product testProduct1 = new Product("Test Gizmo 1", testManufacturer);
-        Product testProduct2 = new Product("Test Gizmo 2", testManufacturer);
+        Product testProduct1 = new Product("Test Gizmo 1", "Sample Description", testManufacturer);
+        Product testProduct2 = new Product("Test Gizmo 2", "Sample Description", testManufacturer);
         productRepo.save(testProduct1);
         productRepo.save(testProduct2);
 
@@ -36,6 +36,6 @@ public class JpaMappingTest {
         Manufacturer retrievedManufacturer = manufacturerRepo.findById(testManufacturer.getId()).get();
         Product retrievedProduct1 = productRepo.findById(testProduct1.getId()).get();
         Product retrievedProduct2 = productRepo.findById(testProduct2.getId()).get();
-        assertThat(retrievedManufacturer.getProducts()).contains(retrievedProduct1,retrievedProduct2);
+        assertThat(retrievedManufacturer.getProducts()).contains(retrievedProduct1, retrievedProduct2);
     }
 }

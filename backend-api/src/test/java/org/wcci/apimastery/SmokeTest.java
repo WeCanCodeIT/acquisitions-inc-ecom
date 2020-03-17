@@ -5,9 +5,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 
 @SpringBootTest
-public class ApiMasteryApplicationTests {
-	@Test
-	public void contextLoads() {
-	}
+public class SmokeTest {
+    @Test
+    public void contextLoads() {
+    }
 
 }
