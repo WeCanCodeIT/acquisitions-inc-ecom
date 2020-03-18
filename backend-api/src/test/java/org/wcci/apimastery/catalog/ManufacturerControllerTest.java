@@ -61,4 +61,10 @@ public class ManufacturerControllerTest {
                 .andExpect(jsonPath("$.name", is("Test Builder")))
                 .andExpect(jsonPath("$.description", is("Sample Description")));
     }
+
+    @Test
+    public void deleteManufacturerWillAskRepositoryToDelete(){
+        underTest.deleteManufacturer(1L);
+        verify(manufacturerRepository).deleteById(1L);
+    }
 }
