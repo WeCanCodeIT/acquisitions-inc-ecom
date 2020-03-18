@@ -26,7 +26,8 @@ public class ManufacturerControllerTest {
     @BeforeEach
     void setUp() {
         manufacturerRepository = mock(ManufacturerRepository.class);
-        underTest = new ManufacturerController(manufacturerRepository);
+        ProductRepository productRepository = mock(ProductRepository.class);
+        underTest = new ManufacturerController(manufacturerRepository, productRepository);
         testManufacturer = new Manufacturer("Test Builder", "Sample Description");
         when(manufacturerRepository.findAll()).thenReturn(Collections.singletonList(testManufacturer));
         mockMvc = MockMvcBuilders.standaloneSetup(underTest).build();
