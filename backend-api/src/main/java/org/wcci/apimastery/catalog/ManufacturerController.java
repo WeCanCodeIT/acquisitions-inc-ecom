@@ -24,7 +24,8 @@ public class ManufacturerController {
         return manufacturerRepository.findById(id).get();
     }
 
-    public void deleteManufacturer(Long id) {
+    @DeleteMapping("/manufacturers/{id}/")
+    public void deleteManufacturer(@PathVariable Long id) {
         manufacturerRepository.deleteById(id);
     }
 

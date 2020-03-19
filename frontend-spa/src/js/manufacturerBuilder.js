@@ -1,7 +1,7 @@
 const anchorElement = document.querySelector('.anchor');
 
 const getAllManufacturers = () => {
-    fetch('http://localhost:8080/manufacturers')
+    fetch('http://localhost:8080/manufacturers/')
         .then(response => response.json())
         .then(manString => displayManufacturers(manString));
 }
@@ -12,7 +12,7 @@ const displayManufacturers = (manufacturers) => {
 
     manufacturers.forEach((manu) => {
         manufacturerList.appendChild(new DomMaker('li')
-            .changeContent(JSON.stringify(manu.name))
+            .changeContent(manu.name)
             .render())
     });
     
