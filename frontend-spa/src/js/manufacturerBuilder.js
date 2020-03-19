@@ -1,22 +1,15 @@
-const anchorElement = document.querySelector('.anchor');
+import {
+    displayManufacturers
+} from './ManufacturersPage.js'
+
 
 const getAllManufacturers = () => {
     fetch('http://localhost:8080/manufacturers/')
         .then(response => response.json())
-        .then(manString => displayManufacturers(manString));
+        .then(manufacturerJson => displayManufacturers(manufacturerJson));
 }
 
-const displayManufacturers = (manufacturers) => {
-    let manufacturerList = new DomMaker('ul')
-        .changeContent('List of manufacturers');
-
-    manufacturers.forEach((manu) => {
-        manufacturerList.appendChild(new DomMaker('li')
-            .changeContent(manu.name)
-            .render())
-    });
-    
-    anchorElement.append(manufacturerList.render());
-}
 
 getAllManufacturers();
+
+export {getAllManufacturers}
