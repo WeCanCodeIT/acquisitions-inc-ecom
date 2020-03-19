@@ -1,20 +1,37 @@
-class DomMaker{
-    
-    constructor(elementType){
+class DomMaker {
+
+    constructor(elementType) {
         this.htmlElement = document.createElement(elementType);
     }
-    
-    appendChild(element){
+
+    appendChild(element) {
         this.htmlElement.append(element);
         return this;
     }
 
-    changeContent(newContent){
+    changeContent(newContent) {
         this.htmlElement.innerText = newContent;
         return this;
     }
 
-    render(){
+    render() {
         return this.htmlElement;
     }
+
+    addClassName(className){
+        this.htmlElement.classList.add(className)
+        return this;
+    }
+
+    addOnClickAction(functionToRun){
+        this.htmlElement.addEventListener('click', (event)=>{
+            event.preventDefault();
+            functionToRun();
+        })
+        return this;
+    }
 }
+
+export {
+    DomMaker
+};

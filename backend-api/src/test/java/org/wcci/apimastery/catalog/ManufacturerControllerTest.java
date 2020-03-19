@@ -13,6 +13,7 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -47,7 +48,7 @@ public class ManufacturerControllerTest {
 
     @Test
     public void underTestIsWiredCorrectlyWithAnnotations() throws Exception {
-        mockMvc.perform(get("/manufacturers"))
+        mockMvc.perform(get("/manufacturers/"))
                 .andExpect(status().isOk());
 
     }
@@ -60,5 +61,17 @@ public class ManufacturerControllerTest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.name", is("Test Builder")))
                 .andExpect(jsonPath("$.description", is("Sample Description")));
+    }
+
+    @Test
+    public void deleteManufacturerWillAskRepositoryToDelete(){
+        underTest.deleteManufacturer(1L);
+        verify(manufacturerRepository).deleteById(1L);
+    }
+    @Test
+    public void underTestIsWiredForDeleteRequest() throws Exception {
+        mockMvc.perform(delete("/manufacturers/1/"))
+                .andExpect(status().isOk());
+        verify(manufacturerRepository).deleteById(1L);
     }
 }
