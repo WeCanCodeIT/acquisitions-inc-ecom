@@ -1,4 +1,5 @@
-export {createSingleProductView}
+export {createSingleProductView};
+import {renderEditProductView} from './app.js';
 
 const createSingleProductView = (product) => {
 
@@ -14,7 +15,9 @@ const createSingleProductView = (product) => {
 
     const editButton = document.createElement('button');
     editButton.innerText = "Edit";
-    editButton.addEventListener('click', console.log('It worked!'));
+    editButton.addEventListener('click', () => {
+        renderEditProductView(product)
+    });
     mainElement.append(editButton);
 
     return mainElement;

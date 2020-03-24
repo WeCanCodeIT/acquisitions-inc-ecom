@@ -1,4 +1,6 @@
 import {createSingleProductView} from './singleProductView.js';
+import {createEditProductView} from './editProductView.js';
+export {renderEditProductView, renderManufacturersView, renderSingleManufacturerView, renderSingleProductView };
 
 const anchor = document.querySelector('.anchor');
 
@@ -17,6 +19,12 @@ const renderSingleManufacturerView = (singleManufacturer) => {
     clearView();
     const singleManufacturerHtml = createSingleManufacturerView(singleManufacturer);
     anchor.appendChild(singleManufacturerHtml);
+}
+
+const renderEditProductView = (product) => {
+    clearView();
+    const editProductHtml = createEditProductView(product);
+    anchor.appendChild(editProductHtml);
 }
 
 const createManufacturersView = (manufacturers) =>{
