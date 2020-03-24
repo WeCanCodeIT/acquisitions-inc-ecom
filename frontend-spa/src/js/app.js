@@ -1,3 +1,7 @@
+import {createNewManufacturerForm} from './scratch/NewManufacturerForm.js';
+
+
+createNewManufacturerForm();
 const manufacturersPromise = fetch('http://localhost:8080/manufacturers/')
                                 .then(response => response.json());
 
@@ -33,9 +37,11 @@ const renderSingleManufacturerView = (manufacturer) =>{
     title.innerText = manufacturer.name;
     mainElement.appendChild(title);
     const description = document.createElement('p');
-    description.innerText=manufacturer.description;
+    description.innerText= 'Description: ' + manufacturer.description;
     mainElement.appendChild(description);
+
     const productsList = document.createElement('ul');
+    productsList.innerText = 'List of Products:';
     mainElement.appendChild(productsList);
     manufacturer.products.forEach(product=>{
         const productElement = document.createElement('li');
