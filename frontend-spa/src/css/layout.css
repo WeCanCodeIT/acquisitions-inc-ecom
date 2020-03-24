@@ -1,0 +1,28 @@
+*{
+    margin:0px;
+    padding: 0px;
+    box-sizing: border-box;
+}
+.container{
+    display: grid;
+    grid-template-rows: 100px auto 60px;
+    
+    min-height: 600px;
+}
+header{
+    grid-row: 1 /2;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+}
+.anchor{
+    grid-row: 1,2;
+}
+footer{
+    position: relative;
+    bottom: 0px;
+    grid-row: -2,-1;
+}
