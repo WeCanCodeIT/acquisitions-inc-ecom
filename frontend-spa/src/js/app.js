@@ -1,24 +1,40 @@
-import {createNewManufacturerForm} from './scratch/NewManufacturerForm.js';
+import {createSingleProductView} from './singleProductView.js';
 
+const anchor = document.querySelector('.anchor');
 
-createNewManufacturerForm();
-const manufacturersPromise = fetch('http://localhost:8080/manufacturers/')
-                                .then(response => response.json());
+const renderManufacturersView = () => fetch('http://localhost:8080/manufacturers/')
+                                .then(response => response.json())
+                                .then(promiseValue => createManufacturersView(promiseValue))
+                                .then(element => anchor.appendChild(element));
 
-const renderManufacturersView = (manufacturers) =>{
+const renderSingleProductView = (product) => {
+    clearView();
+    const singleProductHtml = createSingleProductView(product);
+    anchor.appendChild(singleProductHtml);
+}
+
+const renderSingleManufacturerView = (singleManufacturer) => {
+    clearView();
+    const singleManufacturerHtml = createSingleManufacturerView(singleManufacturer);
+    anchor.appendChild(singleManufacturerHtml);
+}
+
+const createManufacturersView = (manufacturers) =>{
     const mainElement = document.createElement('section');
+
     const title = document.createElement('h2');
     title.innerText = 'Manufacturers we have:';
     mainElement.appendChild(title);
+
     const manufacturersList = document.createElement('ul');
     mainElement.appendChild(manufacturersList);
+
     manufacturers.forEach(manufacturer =>{
         const manufacturerName = document.createElement('li');
         manufacturerName.innerText = manufacturer.name;
         mainElement.appendChild(manufacturerName);
 
         manufacturerName.addEventListener('click',()=>{
-            console.log(manufacturer)
             renderSingleManufacturerView(manufacturer);
         })
     })
@@ -26,16 +42,14 @@ const renderManufacturersView = (manufacturers) =>{
     return mainElement
 }
 
-const renderSingleManufacturerView = (manufacturer) =>{
-    const anchor = document.querySelector('.anchor');
-    while(anchor.firstChild){
-        anchor.removeChild(anchor.firstChild);
-    }
+const createSingleManufacturerView = (manufacturer) =>{
 
     const mainElement = document.createElement('section');
+
     const title = document.createElement('h2');
     title.innerText = manufacturer.name;
     mainElement.appendChild(title);
+
     const description = document.createElement('p');
     description.innerText= 'Description: ' + manufacturer.description;
     mainElement.appendChild(description);
@@ -43,22 +57,27 @@ const renderSingleManufacturerView = (manufacturer) =>{
     const productsList = document.createElement('ul');
     productsList.innerText = 'List of Products:';
     mainElement.appendChild(productsList);
+
     manufacturer.products.forEach(product=>{
         const productElement = document.createElement('li');
         productElement.innerText = product.name;
         productsList.appendChild(productElement);
+
+        productElement.addEventListener('click', ()=>{
+            renderSingleProductView(product);
     })
+})
 
-    anchor.appendChild(mainElement);
+    return mainElement;
 }
-const anchor = document.querySelector('.anchor');
 
-manufacturersPromise
-    .then(promiseValue => renderManufacturersView(promiseValue))
-    .then(element =>anchor.appendChild(element))
+const clearView = () => {
+    while(anchor.firstChild){
+        anchor.removeChild(anchor.firstChild);
+    }
+}
 
-// console.log(manufacturersElement)
-// anchor.appendChild(manufacturersElement)
+renderManufacturersView();
 
 
 
