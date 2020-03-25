@@ -13,26 +13,22 @@ const anchor = document.querySelector('.anchor');
 
 const renderManufacturersView = () => {
     clearView();
-    const manufacturersHtml = createManufacturersView();
-    anchor.append(manufacturersHtml);
+    createManufacturersView();
 }
 
 const renderSingleProductView = (product) => {
     clearView();
-    const singleProductHtml = createSingleProductView(product);
-    anchor.appendChild(singleProductHtml);
+    anchor.appendChild(createSingleProductView(product));
 }
 
 const renderSingleManufacturerView = (singleManufacturer) => {
     clearView();
-    const singleManufacturerHtml = createSingleManufacturerView(singleManufacturer);
-    anchor.appendChild(singleManufacturerHtml);
+    anchor.appendChild(createSingleManufacturerView(singleManufacturer));
 }
 
 const renderEditProductView = (product) => {
     clearView();
-    const editProductHtml = createEditProductView(product);
-    anchor.appendChild(editProductHtml);
+    anchor.appendChild(createEditProductView(product));
 }
 
 const clearView = () => {

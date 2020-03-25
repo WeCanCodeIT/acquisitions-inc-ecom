@@ -1,4 +1,5 @@
-export {createEditProductView}
+export {createEditProductView};
+import{renderManufacturersView} from './app.js';
 
 const createEditProductView = (product) => {
     const mainElement = document.createElement('section');
@@ -8,17 +9,17 @@ const createEditProductView = (product) => {
 
     const nameDescriptor = document.createElement('p')
     nameDescriptor.innerText = 'Name: ';
-    editForm.appendChild(nameDescriptor);
+    editForm.append(nameDescriptor);
 
     const nameInput = document.createElement('input');
     nameInput.classList.add('form__name');
     nameInput.setAttribute('type', 'text');
     nameInput.setAttribute('placeholder', product.name);
-    editForm.appendChild(nameInput);
+    editForm.append(nameInput);
 
-    const descriptionDescriptor = document.createElement('input');
+    const descriptionDescriptor = document.createElement('p');
     descriptionDescriptor.innerText = 'Description: ';
-    editForm.append(nameDescriptor);
+    editForm.append(descriptionDescriptor);
 
     const descriptionInput = document.createElement('input');
     descriptionInput.classList.add('form__description');
@@ -29,17 +30,26 @@ const createEditProductView = (product) => {
     const submitButton = document.createElement('button')
     submitButton.innerText = 'Update Information';
     submitButton.addEventListener('click', () => {
-        collectData();
+        collectData(product);
     })  
-
+    editForm.append(submitButton);
     mainElement.append(editForm);
                         
     return mainElement;
 }
 
-const collectData = () => {
-    console.log('we did it!')
-    // const updatedProductJson = {
-        
-    // }
+const collectData = (product) => {
+    //create Post in productController on back end
+    fetch("http://localhost:8080/products/" + product.id + "/update/", {
+        method: 'PATCH', 
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        //Create and import a function for rendering an all products view or 
+        body: JSON.stringify({
+            "name": document.querySelector('.form__name'),
+            "description": document.querySelector('.form__description')
+        }) 
+      }).then(()=> renderManufacturersView()); //Change to all products or manufacturer view
+
 }

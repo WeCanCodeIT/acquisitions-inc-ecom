@@ -17,6 +17,7 @@ const fetchFromApi = async() => {
 }
 
 let manufacturerAsyncPromise = fetchFromApi();
+console.log("dookie")
 console.log(manufacturerAsyncPromise);
 manufacturerAsyncPromise
     .then(json => console.log(json))
