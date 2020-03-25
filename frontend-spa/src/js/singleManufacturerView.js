@@ -1,5 +1,5 @@
 export {createSingleManufacturerView};
-import {renderSingleProductView} from './app.js';
+import {renderSingleProductView, renderAddProductView} from './app.js';
 
 const createSingleManufacturerView = (manufacturer) =>{
 
@@ -26,6 +26,14 @@ const createSingleManufacturerView = (manufacturer) =>{
             renderSingleProductView(product);
     })
 })
+
+    const addButton = document.createElement('button');
+    addButton.innerText = "Add Product";
+    addButton.addEventListener('click', () => {
+        renderAddProductView(manufacturer)
+    });
+    mainElement.append(addButton);
+
 
     return mainElement;
 }
