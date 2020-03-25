@@ -1,13 +1,21 @@
 import {createSingleProductView} from './singleProductView.js';
 import {createEditProductView} from './editProductView.js';
-export {renderEditProductView, renderManufacturersView, renderSingleManufacturerView, renderSingleProductView };
+import {createManufacturersView} from './manufacturersView.js';
+import {createSingleManufacturerView} from './singleManufacturerView.js';
+
+export { renderEditProductView, 
+    renderManufacturersView, 
+    renderSingleManufacturerView, 
+    renderSingleProductView };
+
 
 const anchor = document.querySelector('.anchor');
 
-const renderManufacturersView = () => fetch('http://localhost:8080/manufacturers/')
-                                .then(response => response.json())
-                                .then(promiseValue => createManufacturersView(promiseValue))
-                                .then(element => anchor.appendChild(element));
+const renderManufacturersView = () => {
+    clearView();
+    const manufacturersHtml = createManufacturersView();
+    anchor.append(manufacturersHtml);
+}
 
 const renderSingleProductView = (product) => {
     clearView();
@@ -25,58 +33,6 @@ const renderEditProductView = (product) => {
     clearView();
     const editProductHtml = createEditProductView(product);
     anchor.appendChild(editProductHtml);
-}
-
-const createManufacturersView = (manufacturers) =>{
-    const mainElement = document.createElement('section');
-
-    const title = document.createElement('h2');
-    title.innerText = 'Manufacturers we have:';
-    mainElement.appendChild(title);
-
-    const manufacturersList = document.createElement('ul');
-    mainElement.appendChild(manufacturersList);
-
-    manufacturers.forEach(manufacturer =>{
-        const manufacturerName = document.createElement('li');
-        manufacturerName.innerText = manufacturer.name;
-        mainElement.appendChild(manufacturerName);
-
-        manufacturerName.addEventListener('click',()=>{
-            renderSingleManufacturerView(manufacturer);
-        })
-    })
-
-    return mainElement
-}
-
-const createSingleManufacturerView = (manufacturer) =>{
-
-    const mainElement = document.createElement('section');
-
-    const title = document.createElement('h2');
-    title.innerText = manufacturer.name;
-    mainElement.appendChild(title);
-
-    const description = document.createElement('p');
-    description.innerText= 'Description: ' + manufacturer.description;
-    mainElement.appendChild(description);
-
-    const productsList = document.createElement('ul');
-    productsList.innerText = 'List of Products:';
-    mainElement.appendChild(productsList);
-
-    manufacturer.products.forEach(product=>{
-        const productElement = document.createElement('li');
-        productElement.innerText = product.name;
-        productsList.appendChild(productElement);
-
-        productElement.addEventListener('click', ()=>{
-            renderSingleProductView(product);
-    })
-})
-
-    return mainElement;
 }
 
 const clearView = () => {
