@@ -39,6 +39,10 @@ public class Product {
         return description;
     }
 
+    public void setDescription(String newDescription) {
+        this.description = newDescription;
+    }
+
     public Manufacturer getManufacturer() {
         return manufacturer;
     }
