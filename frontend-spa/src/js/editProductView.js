@@ -30,7 +30,7 @@ const createEditProductView = (product) => {
     const submitButton = document.createElement('button')
     submitButton.innerText = 'Update Information';
     submitButton.addEventListener('click', () => {
-        collectData(product);
+        collectData(product.id);
     })  
     editForm.append(submitButton);
     mainElement.append(editForm);
@@ -38,18 +38,19 @@ const createEditProductView = (product) => {
     return mainElement;
 }
 
-const collectData = (product) => {
-    //create Post in productController on back end
-    fetch("http://localhost:8080/products/" + product.id + "/update/", {
+const collectData = (productId) => {
+
+    const manufacturerJson = {
+            "name": document.querySelector('.form__name').value,
+            "description": document.querySelector('.form__description').value
+        }
+
+    fetch("http://localhost:8080/products/" + productId + "/update/", {
         method: 'PATCH', 
         headers: {
           'Content-Type': 'application/json'
         },
-        //Create and import a function for rendering an all products view or 
-        body: JSON.stringify({
-            "name": document.querySelector('.form__name'),
-            "description": document.querySelector('.form__description')
-        }) 
-      }).then(()=> renderManufacturersView()); //Change to all products or manufacturer view
+        body: JSON.stringify(manufacturerJson) 
+      }).then(()=> renderManufacturersView()); 
 
 }

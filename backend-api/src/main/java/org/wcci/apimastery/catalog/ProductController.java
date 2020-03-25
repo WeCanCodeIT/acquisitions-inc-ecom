@@ -1,9 +1,6 @@
 package org.wcci.apimastery.catalog;
 
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class ProductController {
@@ -21,6 +18,14 @@ public class ProductController {
     @GetMapping("/products/{id}/manufacturer/")
     public Manufacturer retrieveProductManufacturer(@PathVariable Long id){
         return productRepo.findById(id).get().getManufacturer();
+    }
+
+    @PatchMapping("/products/{id}/update/")
+    public Product updateProduct(@PathVariable Long id, @RequestBody Product requestBodyProduct) {
+        Product productToPatch = productRepo.findById(id).get();
+        productToPatch.setDescription(requestBodyProduct.getDescription());
+
+        return productRepo.save(productToPatch);
     }
 
 }

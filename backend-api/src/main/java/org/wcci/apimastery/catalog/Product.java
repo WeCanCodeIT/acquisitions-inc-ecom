@@ -39,6 +39,10 @@ public class Product {
         return description;
     }
 
+    public void setDescription(String newDescription) {
+        this.description = newDescription;
+    }
+
     public Manufacturer getManufacturer() {
         return manufacturer;
     }
@@ -61,5 +65,15 @@ public class Product {
         result = 31 * result + (id != null ? id.hashCode() : 0);
         result = 31 * result + (manufacturer != null ? manufacturer.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", manufacturer=" + manufacturer +
+                '}';
     }
 }

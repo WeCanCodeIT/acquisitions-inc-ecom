@@ -21,7 +21,6 @@ const createManufacturersComponent = (manufacturers) =>{
     mainElement.appendChild(manufacturersList);
 
     manufacturers.forEach(manufacturer =>{
-        console.log(manufacturer)
         const manufacturerName = document.createElement('li');
         manufacturerName.innerText = manufacturer.name;
         mainElement.appendChild(manufacturerName);
